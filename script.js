@@ -139,7 +139,7 @@ function exibirHotColdNumbers(jogos) {
 
         if (freqUltimos10 === 0) {
             status = 'Frio'; // Não apareceu nos últimos 10 jogos
-        } else if (freqUltimos10 >= 3) {
+        } else if (freqUltimos10 >= 5) {
             status = 'Quente'; // Apareceu 3 ou mais vezes nos últimos 10 jogos
         } else {
             status = 'Neutro'; // Apareceu 1 ou 2 vezes nos últimos 10 jogos
