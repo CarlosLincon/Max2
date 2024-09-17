@@ -1,0 +1,1 @@
+Precisa do XAMPP ou algo que simule um servidor
