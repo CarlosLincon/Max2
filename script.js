@@ -159,13 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const tableBody = document.getElementById('acompanhamento-numeros');
         tableBody.innerHTML = ''; // Limpa a tabela
 
-        const acompanhamento = calcularAcompanhamentoNumeros(jogos, numeroSelecionado);
+        const acompanhamentos = calcularAcompanhamentoNumeros(jogos, numeroSelecionado);
 
-        acompanhamento.forEach(item => {
+        acompanhamentos.forEach(acompanhamento => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.numero}</td>
-                <td>${item.quantidade}</td>
+                <td>${acompanhamento.numero}</td>
+                <td>${acompanhamento.quantidade}</td>
             `;
             tableBody.appendChild(row);
         });
@@ -173,26 +173,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função para calcular quantas vezes um número foi acompanhado por outro
     function calcularAcompanhamentoNumeros(jogos, numeroSelecionado) {
-        const acompanhamento = Array.from({ length: 25 }, () => Array(25).fill(0)); // Matriz 25x25
+        const acompanhamentos = Array(25).fill(0); // Array para contar acompanhamentos
 
         jogos.forEach(jogo => {
-            if (jogo.numeros.includes(numeroSelecionado)) {
+            const count = jogo.numeros.filter(num => num !== numeroSelecionado).length;
+            if (count > 0) {
                 jogo.numeros.forEach(num => {
                     if (num !== numeroSelecionado) {
-                        acompanhamento[num - 1][numeroSelecionado - 1]++;
+                        acompanhamentos[num - 1]++;
                     }
                 });
             }
         });
 
-        return Array.from({ length: 25 }, (_, i) => ({
-            numero: i + 1,
-            quantidade: acompanhamento[i][numeroSelecionado - 1]
-        }));
+        return acompanhamentos.map((quantidade, idx) => ({ numero: idx + 1, quantidade }))
+                           .sort((a, b) => b.quantidade - a.quantidade);
     }
 
     // Função para preencher a seleção de números
-    function preencherSelecaoNumeros() {
+    function preencherSelecaoNumeros(jogos) {
         const select = document.getElementById('numero-selecionado');
         select.innerHTML = ''; // Limpa o select
 
@@ -206,6 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona o evento de mudança para o select
         select.addEventListener('change', exibirAcompanhamentoNumeros);
+    }
+
+    // Função para atualizar os jogos filtrados
+    function atualizarJogosFiltrados() {
+        const filtro = document.getElementById('filtro-jogos').value;
+        const jogosFiltrados = jogos.filter(jogo => jogo.data.includes(filtro));
+        exibirJogos(jogosFiltrados);
     }
 
     // Carrega o arquivo Excel ao carregar a página
