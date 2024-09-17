@@ -124,32 +124,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Função para exibir números quentes e frios
-    function exibirHotColdNumbers(jogos) {
-        const tableBody = document.getElementById('hot-cold-numbers');
-        tableBody.innerHTML = ''; // Limpa a tabela
+    // Função para exibir números quentes, frios e neutros
+function exibirHotColdNumbers(jogos) {
+    const tableBody = document.getElementById('hot-cold-numbers');
+    tableBody.innerHTML = ''; // Limpa a tabela
 
-        const frequenciaTotal = calcularFrequenciaNumeros(jogos);
-        const frequenciaUltimos10Jogos = calcularFrequenciaNumeros(jogos.slice(-10));
+    const frequenciaTotal = calcularFrequenciaNumeros(jogos);
+    const frequenciaUltimos10Jogos = calcularFrequenciaNumeros(jogos.slice(-10));
 
-        const status = frequenciaTotal.map((freqTotal, idx) => ({
+    // Critérios ajustados para "quente", "frio" e "neutro"
+    const status = frequenciaTotal.map((freqTotal, idx) => {
+        const freqUltimos10 = frequenciaUltimos10Jogos[idx];
+        let status;
+
+        if (freqUltimos10 === 0) {
+            status = 'Frio'; // Não apareceu nos últimos 10 jogos
+        } else if (freqUltimos10 >= 3) {
+            status = 'Quente'; // Apareceu 3 ou mais vezes nos últimos 10 jogos
+        } else {
+            status = 'Neutro'; // Apareceu 1 ou 2 vezes nos últimos 10 jogos
+        }
+
+        return {
             numero: idx + 1,
             frequenciaTotal: freqTotal,
-            frequenciaUltimos10: frequenciaUltimos10Jogos[idx],
-            status: frequenciaUltimos10Jogos[idx] === 0 ? 'Frio' : 'Quente'
-        }));
+            frequenciaUltimos10: freqUltimos10,
+            status: status
+        };
+    });
 
-        status.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.numero}</td>
-                <td>${item.frequenciaTotal}</td>
-                <td>${item.frequenciaUltimos10}</td>
-                <td>${item.status}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
+    status.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.numero}</td>
+            <td>${item.frequenciaTotal}</td>
+            <td>${item.frequenciaUltimos10}</td>
+            <td>${item.status}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
 
     // Função para exibir análise de acompanhamento de números
     function exibirAcompanhamentoNumeros() {
