@@ -15,11 +15,43 @@
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Lotofácil Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#games-section">Visualização dos Jogos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#frequency-section">Frequência de Números</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#next-result-section">Chance do Próximo Resultado</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hot-cold-section">Números Quentes e Frios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#accompaniment-section">Acompanhamento de Números</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-4">
         <h1>Dashboard Lotofácil</h1>
 
         <!-- Visualização dos Jogos -->
-        <div class="mt-4">
+        <div id="games-section" class="mt-4">
             <h2>Visualização dos Jogos</h2>
             <div class="table-wrapper">
                 <table class="table table-striped">
@@ -38,13 +70,13 @@
         </div>
 
         <!-- Gráfico de Frequência de Números -->
-        <div class="mt-4">
+        <div id="frequency-section" class="mt-4">
             <h2>Frequência de Números</h2>
             <canvas id="frequency-chart" width="400" height="200"></canvas>
         </div>
 
         <!-- Análise de Chance do Próximo Resultado -->
-        <div class="mt-4">
+        <div id="next-result-section" class="mt-4">
             <h2>Chance do Próximo Resultado</h2>
             <table class="table table-striped">
                 <thead>
@@ -60,7 +92,7 @@
         </div>
 
         <!-- Números Quentes e Frios -->
-        <div class="mt-4">
+        <div id="hot-cold-section" class="mt-4">
             <h2>Números Quentes e Frios</h2>
             <table class="table table-striped">
                 <thead>
@@ -78,7 +110,7 @@
         </div>
 
         <!-- Análise de Acompanhamento de Números -->
-        <div class="mt-4">
+        <div id="accompaniment-section" class="mt-4">
             <h2>Análise de Acompanhamento de Números</h2>
             <div class="mb-3">
                 <label for="numero-selecionado" class="form-label">Número Selecionado:</label>
@@ -101,5 +133,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
